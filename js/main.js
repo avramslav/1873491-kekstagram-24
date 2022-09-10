@@ -17,4 +17,6 @@ const getRandomInt = (startRange, endRange) => {
     return Math.floor(Math.random() * (endRange - startRange +1))+ startRange;
   }
 };
+const isNotMaxLengthString = (verifiedString, maximumLength) => (verifiedString.length <= maximumLength);
+isNotMaxLengthString('kuyvrfjikuy',6);
 getRandomInt(2,8);
