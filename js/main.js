@@ -1,6 +1,6 @@
 const getRandomInt = (startRange, endRange) => {
   if (startRange<0 && endRange<0) {
-    return 'Неверные данные';
+    return -1;
   }
   if(startRange>endRange){[startRange, endRange] = [endRange, startRange];}
   if (startRange<0) {
@@ -12,7 +12,7 @@ const getRandomInt = (startRange, endRange) => {
   startRange = Math.ceil(startRange);
   endRange = Math.floor(endRange);
   if (startRange > endRange){
-    return 'Диапазон не содержит целочисленные значения';}
+    return -1;}
   else {
     return Math.floor(Math.random() * (endRange - startRange +1))+ startRange;
   }
