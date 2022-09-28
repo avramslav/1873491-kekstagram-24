@@ -1,3 +1,4 @@
+const PERSON_COUNT = 25;
 const MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -105,4 +106,4 @@ const createDataOfPerson = () => {
   };
 };
 isNotMaxLengthString('kuyvrfjikuy', 6);
-Array.from({length:25},createDataOfPerson);
+Array.from({length:PERSON_COUNT},createDataOfPerson);
