@@ -47,6 +47,26 @@ const DESCRIPTION_PHOTO = [
   'Ночной концерт в самом разгаре',
   'Бегемот устрашающе выглядит из воды',
 ];
+const CommentsRange = {
+  MIN: 1,
+  MAX: 4,
+};
+const CountLikesRange = {
+  MIN: 15,
+  MAX: 200,
+};
+const CommentIdRange = {
+  MIN: 11,
+  MAX: 300,
+};
+const DescriptionIDRange = {
+  MIN: 1,
+  MAX: 25,
+};
+const AvatarIDRange = {
+  MIN: 1,
+  MAX: 6,
+};
 
 const getRandomInt = (startRange, endRange) => {
   if (startRange < 0 && endRange < 0) {
@@ -76,7 +96,7 @@ const createRandomIdFromRangeGenerator = (min, max) => {
   return () => {
     let currentValue = getRandomInt(min, max);
     if (previousValues.length >= max - min + 1) {
-      throw new Error (`Перебраны все числа из диапазона от ${min} до ${max}`);
+      throw new Error(`Перебраны все числа из диапазона от ${min} до ${max}`);
     }
     while (previousValues.includes(currentValue)) {
       currentValue = getRandomInt(min, max);
@@ -85,25 +105,27 @@ const createRandomIdFromRangeGenerator = (min, max) => {
     return currentValue;
   };
 };
-const descriptionID = createRandomIdFromRangeGenerator(1,25);
-const commentId = createRandomIdFromRangeGenerator(11,300);
-const countLikes = createRandomIdFromRangeGenerator(15,200);
+const descriptionID = createRandomIdFromRangeGenerator(DescriptionIDRange.MIN, DescriptionIDRange.MAX);
+const commentId = createRandomIdFromRangeGenerator(CommentIdRange.MIN, CommentIdRange.MAX);
+const countLikes = createRandomIdFromRangeGenerator(CountLikesRange.MIN, CountLikesRange.MAX);
+
 const createCommentsForPerson = () => ({
   id: commentId(),
-  avatar: `img/avatar-${getRandomInt(1, 6)}.svg`,
+  avatar: `img/avatar-${getRandomInt(AvatarIDRange.MIN, AvatarIDRange.MAX)}.svg`,
   message: MESSAGES[getRandomInt(0, MESSAGES.length - 1)],
   name: NAMES[getRandomInt(0, NAMES.length - 1)],
 });
+
 const createDataOfPerson = () => {
   const id = descriptionID();
-  const comments = Array.from({length:getRandomInt(1,3)},createCommentsForPerson);
+  const comments = Array.from({length: getRandomInt(CommentsRange.MIN, CommentsRange.MAX)}, createCommentsForPerson);
   return {
     id: id,
-    url:`photos/${id}.jpg`,
-    description: DESCRIPTION_PHOTO[id-1],
+    url: `photos/${id}.jpg`,
+    description: DESCRIPTION_PHOTO[id - 1],
     likes: countLikes(),
     comments: comments,
   };
 };
 isNotMaxLengthString('kuyvrfjikuy', 6);
-Array.from({length:PERSON_COUNT},createDataOfPerson);
+Array.from({length: PERSON_COUNT}, createDataOfPerson);
